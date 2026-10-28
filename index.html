@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FranceConnect</title>
+
+<!-- iPhone home screen icon -->
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+<!-- Favicons -->
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="shortcut icon" href="favicon-32x32.png">
+
+<!-- Theme color for mobile browser UI -->
+<meta name="theme-color" content="#000091">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="FranceConnect">
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif; background: #f5f5fe; color: #161616; line-height: 1.45; }
+
+  /* Header */
+  .fc-header { background: #ffffff; border-bottom: 1px solid #ddd; }
+  .fc-header-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; gap: 10px; }
+  .fc-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .fc-logo img { width: 38px; height: 38px; display: block; }
+  .fc-wordmark { font-size: 21px; font-weight: 800; color: #000091; letter-spacing: -0.3px; }
+  .fc-flag { display: flex; height: 4px; width: 100%; }
+  .fc-flag span { flex: 1; }
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 36px 20px 60px; display: flex; gap: 40px; }
+
+  /* Login card */
+  .card { background: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 32px 36px; width: 420px; flex-shrink: 0; }
+  .card h1 { font-size: 25px; font-weight: 800; color: #000091; margin-bottom: 6px; }
+  .card .sub { font-size: 15px; color: #666; margin-bottom: 24px; }
+
+  .form-group { margin-bottom: 18px; }
+  label { display: block; font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+  input[type="email"], input[type="password"] { width: 100%; padding: 11px 12px; font-size: 16px; border: 1px solid #aaa; border-radius: 4px; }
+  input:focus { outline: 2px solid #000091; outline-offset: 1px; border-color: #000091; }
+
+  .btn { display: block; width: 100%; background: #000091; color: #ffffff; border: none; padding: 13px; font-size: 16px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; font-family: inherit; }
+  .btn:hover { background: #1212a5; }
+  .btn-secondary { background: #eeeeee; color: #161616; width: auto; padding: 13px 32px; }
+  .btn-secondary:hover { background: #e0e0e0; }
+
+  .links { margin-top: 20px; font-size: 14px; }
+  .links a { color: #000091; text-decoration: none; display: block; margin-bottom: 8px; }
+  .links a:hover { text-decoration: underline; }
+
+  .error-box { background: #ffe9e9; border: 1px solid #e1000f; color: #e1000f; padding: 12px 14px; border-radius: 4px; font-size: 14px; margin-bottom: 18px; font-weight: 700; }
+  .input-error { border: 2px solid #e1000f !important; }
+
+  .info-col { flex: 1; font-size: 15px; }
+  .info-col h2 { font-size: 20px; font-weight: 800; color: #000091; margin-bottom: 14px; }
+  .info-col p { margin-bottom: 14px; color: #3a3a3a; }
+  .providers { list-style: none; margin: 10px 0 20px; }
+  .providers li { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 10px 14px; margin-bottom: 8px; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 10px; }
+  .providers .dot { width: 10px; height: 10px; border-radius: 50%; background: #000091; flex-shrink: 0; }
+
+  /* Identity view */
+  .identity-card { background: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 36px; max-width: 640px; margin: 0 auto; }
+  .identity-card h1 { font-size: 24px; font-weight: 800; color: #000091; margin-bottom: 8px; }
+  .identity-head { display: flex; gap: 24px; align-items: center; margin: 22px 0; }
+  .id-photo { width: 110px; height: 140px; border-radius: 6px; overflow: hidden; border: 1px solid #ccc; flex-shrink: 0; }
+  .id-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .id-name { font-size: 24px; font-weight: 800; }
+  .id-sub { color: #555; font-size: 15px; margin-top: 4px; }
+  .data-box { background: #f5f5fe; border: 1px solid #e1e1f5; border-radius: 6px; padding: 18px 20px; margin: 18px 0; }
+  .data-row { display: flex; padding: 8px 0; border-bottom: 1px solid #e1e1f5; font-size: 15px; }
+  .data-row:last-child { border-bottom: none; }
+  .data-key { width: 45%; font-weight: 700; }
+  .data-val { width: 55%; }
+  .service-line { background: #e8edff; border-left: 4px solid #000091; padding: 12px 16px; font-size: 14px; margin: 18px 0; }
+  .btn-row { display: flex; gap: 12px; margin-top: 24px; }
+
+  .fc-footer { background: #ffffff; border-top: 1px solid #ddd; padding: 24px 20px; margin-top: 40px; }
+  .fc-footer-inner { max-width: 1100px; margin: 0 auto; font-size: 13px; color: #555; }
+  .fc-footer-inner a { color: #000091; margin-right: 20px; text-decoration: none; }
+
+  /* PROP tag */
+  .prop-tag { position: fixed; bottom: 8px; right: 8px; background: rgba(0,0,0,0.55); color: #fff; font-size: 11px; padding: 3px 8px; letter-spacing: 1px; z-index: 999; }
+
+  .hidden { display: none; }
+  @media (max-width: 800px) {
+    .wrap { flex-direction: column; }
+    .card { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="fc-header">
+  <div class="fc-header-inner">
+    <a class="fc-logo" href="#">
+      <img src="icon.png" alt="FranceConnect">
+      <span class="fc-wordmark">FranceConnect</span>
+    </a>
+  </div>
+  <div class="fc-flag">
+    <span style="background:#0055A4"></span><span style="background:#ffffff"></span><span style="background:#EF4135"></span>
+  </div>
+</div>
+
+<!-- ============ LOGIN VIEW ============ -->
+<div id="login-view" class="wrap">
+  <div class="card">
+    <h1>S'identifier avec FranceConnect</h1>
+    <p class="sub">Pour accéder au service, connectez-vous avec votre compte FranceConnect.</p>
+
+    <div id="error-box" class="error-box hidden">
+      Votre identifiant ou votre mot de passe est incorrect.
+    </div>
+
+    <form id="login-form" novalidate>
+      <div class="form-group">
+        <label for="email">Identifiant (e-mail)</label>
+        <input type="email" id="email" autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn">S'identifier</button>
+    </form>
+
+    <div class="links">
+      <a href="#">J'ai oublié mon mot de passe</a>
+      <a href="#">Créer un compte FranceConnect</a>
+      <a href="#">Qu'est-ce que FranceConnect ?</a>
+    </div>
+  </div>
+
+  <div class="info-col">
+    <h2>Se connecter avec un compte existant</h2>
+    <p>FranceConnect vous permet d'accéder à des services en ligne de l'État avec un seul identifiant et un seul mot de passe.</p>
+    <ul class="providers">
+      <li><span class="dot"></span>Impots.gouv.fr</li>
+      <li><span class="dot"></span>Ameli.fr</li>
+      <li><span class="dot"></span>La Poste</li>
+      <li><span class="dot"></span>MobileConnect et moi</li>
+      <li><span class="dot"></span>Yris</li>
+    </ul>
+    <p><strong>Vos données restent confidentielles.</strong> Le service auquel vous accédez ne reçoit jamais votre mot de passe.</p>
+  </div>
+</div>
+
+<!-- ============ IDENTITY VIEW ============ -->
+<div id="identity-view" class="wrap hidden">
+  <div class="identity-card">
+    <h1>Votre identité</h1>
+    <p>Le service suivant demande à consulter vos informations d'identité.</p>
+
+    <div class="service-line">
+      <strong>Service demandeur :</strong> Démarches administratives — Intérieur
+    </div>
+
+    <div class="identity-head">
+      <div class="id-photo"><img src="data:image/jpeg;base64,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" alt="Photo d'identité"></div>
+      <div>
+        <div class="id-name">CHEMLAL Belkacem</div>
+        <div class="id-sub">Né le 02/12/1995</div>
+        <div class="id-sub">Nationalités française et algérienne</div>
+      </div>
+    </div>
+
+    <div class="data-box">
+      <div class="data-row"><span class="data-key">Nom</span><span class="data-val">CHEMLAL</span></div>
+      <div class="data-row"><span class="data-key">Prénom(s)</span><span class="data-val">Belkacem</span></div>
+      <div class="data-row"><span class="data-key">Date de naissance</span><span class="data-val">02/12/1995</span></div>
+      <div class="data-row"><span class="data-key">Nationalité</span><span class="data-val">Française et algérienne</span></div>
+      <div class="data-row"><span class="data-key">Passeport n°</span><span class="data-val">17AB48213</span></div>
+      <div class="data-row"><span class="data-key">Titre de séjour</span><span class="data-val">Travailleur salarié — valide du 11/09/2022 au 10/09/2027</span></div>
+      <div class="data-row"><span class="data-key">Données biométriques</span><span class="data-val">Non disponibles</span></div>
+      <div class="data-row"><span class="data-key">Enregistrement</span><span class="data-val">Ambassade de France à Londres</span></div>
+    </div>
+
+    <p style="font-size:14px;color:#555;">En continuant, vous acceptez de transmettre ces informations au service demandeur.</p>
+
+    <div class="btn-row">
+      <button class="btn" id="continue-btn" style="width:auto;padding:13px 32px;">Continuer</button>
+      <button class="btn btn-secondary" id="back-btn">Retour</button>
+    </div>
+  </div>
+</div>
+
+<div class="fc-footer">
+  <div class="fc-footer-inner">
+    <a href="#">Mentions légales</a>
+    <a href="#">Données personnelles</a>
+    <a href="#">Accessibilité</a>
+    <a href="#">Aide</a>
+    <p style="margin-top:12px;">Un service de l'État français</p>
+  </div>
+</div>
+
+<div class="prop-tag">FILM PROP — NOT AN OFFICIAL FRANCECONNECT SERVICE</div>
+
+<script>
+  var VALID_EMAIL = "chbelkacem12@gmail.com";
+  var VALID_PASSWORD = "Belkacem0212@";
+
+  document.getElementById("login-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = document.getElementById("email").value.trim().toLowerCase();
+    var password = document.getElementById("password").value;
+    var err = document.getElementById("error-box");
+
+    err.classList.add("hidden");
+    document.getElementById("email").classList.remove("input-error");
+    document.getElementById("password").classList.remove("input-error");
+
+    if (email === VALID_EMAIL && password === VALID_PASSWORD) {
+      document.getElementById("login-view").classList.add("hidden");
+      document.getElementById("identity-view").classList.remove("hidden");
+      window.scrollTo(0, 0);
+    } else {
+      err.classList.remove("hidden");
+      document.getElementById("email").classList.add("input-error");
+      document.getElementById("password").classList.add("input-error");
+    }
+  });
+
+  document.getElementById("back-btn").addEventListener("click", function () {
+    document.getElementById("identity-view").classList.add("hidden");
+    document.getElementById("login-view").classList.remove("hidden");
+    document.getElementById("login-form").reset();
+    document.getElementById("error-box").classList.add("hidden");
+    window.scrollTo(0, 0);
+  });
+
+  document.getElementById("continue-btn").addEventListener("click", function () {
+    alert("Démo : aucune donnée n'est transmise.");
+  });
+</script>
+</body>
+</html>
